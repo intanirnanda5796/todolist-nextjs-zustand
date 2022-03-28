@@ -10,15 +10,37 @@ const handleAddTodo = (todo, data) => [
     }
 ];
 
-const handleCompleteTodo = (todo, id) => todo.map(listTodo => ({
-    ...listTodo,
-    complete: listTodo.id === id && true
-}));
+const handleCompleteTodo = (todo, id) => {
+    const completeTodo = todo.map(listTodo => {
+        if (listTodo.id === id) {
+            return {
+                id: listTodo.id,
+                title: listTodo.title,
+                complete: true
+            }
+        }
 
-const handleUncompleteTodo = (todo, id) => todo.map(listTodo => ({
-    ...listTodo,
-    complete: listTodo.id === id && false
-}));
+        return listTodo;
+    })
+
+    return completeTodo;
+};
+
+const handleUncompleteTodo = (todo, id) => {
+    const unCompleteTodo = todo.map(listTodo => {
+        if (listTodo.id === id) {
+            return {
+                id: listTodo.id,
+                title: listTodo.title,
+                complete: false
+            }
+        }
+
+        return listTodo;
+    })
+
+    return unCompleteTodo;
+};
 
 const handleRemoveTodo = (todo, id) => todo.filter(listTodo => listTodo.id !== id);
 

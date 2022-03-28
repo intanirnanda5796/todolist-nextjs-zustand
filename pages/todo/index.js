@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { CButton, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from "@coreui/react";
+import { CButton, CFormCheck, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from "@coreui/react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import useTodoStore from "../../store";
@@ -18,6 +18,14 @@ export default function Todo()
         store.deleteTodo(id);
     }
 
+    const handleCheck = (e, id) => {
+        if (e.target.checked) {
+            store.completeTodo(id);
+        } else {
+            store.unCompleteTodo(id);
+        }
+    }
+
     return (
         <div css={css`
             margin-top: 20px;
@@ -27,6 +35,7 @@ export default function Todo()
                 <CTableHead>
                     <CTableRow>
                         <CTableHeaderCell>Title</CTableHeaderCell>
+                        <CTableHeaderCell></CTableHeaderCell>
                         <CTableHeaderCell>Action</CTableHeaderCell>
                     </CTableRow>
                 </CTableHead>
@@ -35,6 +44,7 @@ export default function Todo()
                         store.todo.map(todos => (
                             <CTableRow key={todos.id}>
                                 <CTableDataCell>{todos.title}</CTableDataCell>
+                                <CTableDataCell><CFormCheck checked={todos.complete} onChange={(e) => handleCheck(e, todos.id)} /></CTableDataCell>
                                 <CTableDataCell>
                                     <CButton type="submit" color="danger" onClick={() => handleDelete(todos.id)}>Delete</CButton>
                                 </CTableDataCell>
