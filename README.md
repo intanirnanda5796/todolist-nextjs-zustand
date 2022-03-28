@@ -1,4 +1,4 @@
-# Todolist Next Js Redux
+# Todolist Next Js Zustand
 
 ## Fitur
 - zustand
